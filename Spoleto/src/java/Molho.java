@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ra21505955
+ * @author Rafael.Soares
  */
 public class Molho extends HttpServlet {
 
@@ -30,20 +30,22 @@ public class Molho extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
+        
         HttpSession sessao = request.getSession(false);
         
-        if(sessao !=null){
-           Pedido p = (Pedido) sessao.getAttribute("ped");
-           
-           String escolha = request.getParameter("escolha");
-           
-           p.setMolho(escolha);
-           
-           sessao.setAttribute("ped",p);
+        if(sessao != null) {
+            Pedido p = (Pedido) sessao.getAttribute("ped");
+            
+            String escolha = request.getParameter("escolha");
+            
+            p.setMolho(escolha);
+            
+            sessao.setAttribute("ped", p);
         }
         
-        request.getRequestDispatcher("Home").forward(request, response);
+        request.getRequestDispatcher("Home")
+                .forward(request, response);
+        
         
     }
 

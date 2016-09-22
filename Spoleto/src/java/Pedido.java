@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author ra21505955
+ * @author Rafael.Soares
  */
 public class Pedido {
     

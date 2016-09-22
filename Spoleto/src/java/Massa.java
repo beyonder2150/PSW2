@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author adenilton
+ * @author Rafael.Soares
  */
 public class Massa extends HttpServlet {
 
@@ -27,25 +27,50 @@ public class Massa extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-  protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
-        HttpSession sessao = request.getSession(false);
-        
-        if(sessao !=null){
-           Pedido p = (Pedido) sessao.getAttribute("pedo");
+        try (PrintWriter out = response.getWriter()) {
            
-           String escolha = request.getParameter("escolha");
-           
-           p.setMassa(escolha);
-           
-           sessao.setAttribute("pedo",p);
+            //Recuperar a sessao do usuario
+            HttpSession sessao = request.getSession(false);
+            
+            if(sessao != null) {
+            
+                //recupear o pedido do usuario
+                Pedido p = (Pedido) sessao.getAttribute("ped");
+            
+                //identificar a escolha
+                String e = request.getParameter("escolha");
+
+                //atualizar o pedido
+                p.setMassa(e);
+            
+                //armazenar o pedido atualizado na sessao
+                sessao.setAttribute("ped", p);
+            
+            }
+            //direcionar o usr para a Home
+            request.getRequestDispatcher("Home")
+                    .forward(request, response);
+            
+            
+            
+            
+            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Massa</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Massa at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
-        request.getRequestDispatcher("Home").forward(request, response);
-        
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

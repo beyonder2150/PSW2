@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ra21505955
+ * @author Rafael.Soares
  */
 public class Home extends HttpServlet {
 
@@ -35,48 +35,45 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Spoleto</title>");
+            out.println("<title>Spoleto</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Bem Vindo ao Spoleto</h1>");
-
+            out.println("<h1>Bem vindo ao Spoleto</h1>");
+            
             Pedido pedido = null;
-            HttpSession sessao = request.getSession();
-            if (sessao.isNew()) {
+            
+            HttpSession sessao = request.getSession(true);
+            
+            if(sessao.isNew()){
                 pedido = new Pedido();
                 sessao.setAttribute("ped", pedido);
-            } else {
+            }
+            else {
                 pedido = (Pedido) sessao.getAttribute("ped");
             }
-
-            if (pedido.getMolho() == null) {
-
+            
+            if(pedido.getMolho() == null){
                 out.println("<h2><a href=\"molhos.html\">Escolha um Molho</a></h2>");
-
             } else {
-
-                out.println("<h2>Molho escolhido:" + pedido.getMolho() + 
-                        "<a href=\"molhos.html\">(Trocar)</a></h2>");
-
+                out.println("<h2>Molho escolhido: " + pedido.getMolho() +
+                           "<a href=\"molhos.html\">(Trocar)</a></h2>");
             }
             
-
-            if (pedido.getMassa() == null) {
-
+            if(pedido.getMassa()== null){
                 out.println("<h2><a href=\"massas.html\">Escolha uma Massa</a></h2>");
-
             } else {
-
-                out.println("<h2>Massa escolhida:" + pedido.getMassa() + 
-                        "<a href=\"massas.html\">(Trocar)</a></h2>");
-
+                out.println("<h2>Massa escolhida: " + pedido.getMassa() +
+                           "<a href=\"massas.html\">(Trocar)</a></h2>");
             }
-            if(pedido.getIngredientes()== null){
-                out.println("<h2><a href=\"ingredientes.html\">Escolha um Ingredientes</a></h2>");
-            } else{
-                out.println("<h2>Ingredientes Escolhidos:</h2>");
+            
+            
+            if(pedido.getIngredientes() == null){
+                out.println("<h2><a href=\"ingredientes.html\">Escolha Ingredientes</a></h2>");
+            } else {
+                out.println("<h2>Ingredientes escolhidos:</h2>");
+                //for(int count = 0; count < pedido.getIngredientes().size(); count++)
                 for(String ingrediente : pedido.getIngredientes()){
-                    out.println("<h3>"+ ingrediente +"</h3>");
+                    out.println("<h3>"+ ingrediente +"</h3>");    
                 }
                 out.println("<h2><a href=\"ingredientes.html\">Trocar</a></h2>");
             }
