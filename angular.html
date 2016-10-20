@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+<script>
+	//variavel que representa a aplicacao
+	var app = angular.module("teste", []);
+	app.controller('testectrl',function($scope){
+		$scope.variavelA = 0;
+
+		$scope.imagemUrl = "http://www.sitedecuriosidades.com/im/g/B9362.jpg";
+
+		$scope.somar = function(){
+			$scope.variavelA++;
+		}
+
+		$scope.mostrar = function(){
+			$scope.visivel = true;
+		}
+
+		$scope.esconder = function(){
+			$scope.visivel = false;
+		}
+		$scope.banana = function(){
+			$scope.imagemUrl = "https://upload.wikimedia.org/wikipedia/commons/4/44/Bananas_white_background_DS.jpg";
+		}
+
+
+
+	});	
+</script>
+<div ng-app="teste">
+	<div ng-controller="testectrl">
+		<p>Name : <input type="text" ng-model="name"></p>
+		<h1>Hello {{name}}</h1>
+		<h2>o valor de variavel a eh: {{variavelA}}</h2>
+		<button ng-click="somar()">incrementar</button>
+		<img ng-show="visivel"  width="100px" 
+		ng-src="{{imagemUrl}}">
+		<br/>
+		<button ng-click="mostrar()">Mostrar</button>
+		<button ng-click="esconder()">Esconder</button>
+<button ng-click="banana()">Bananaaaaaa</button>
+
+
+	</div>
+</div>
+
+</body>
+</html>
+			
